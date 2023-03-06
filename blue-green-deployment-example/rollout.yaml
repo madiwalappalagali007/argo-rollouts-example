@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: rollouts-demo
-        image: docker pull jemesbond/angular:v1
+        image: jemesbond/angular:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
