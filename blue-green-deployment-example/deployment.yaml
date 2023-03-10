@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: nginx-webapp
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx-webapp
+  strategy:
+    blueGreen:
+      activeService: nginx-webapp
+      previewService: nginx-webapp-preview
+      previewReplicas: 1
+  template:
+    spec:
+      containers:
+      - name: webapp
+        image: jemesbond/angular:v1
+        ports:
+        - containerPort: 80
+        resources: {}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-webapp
+  labels:
+    app: nginx-webapp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx-webapp
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-webapp-preview
+  labels:
+    app: nginx-webapp-preview
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx-webapp
+  type: ClusterIP
