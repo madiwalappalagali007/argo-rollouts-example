@@ -1,24 +1,14 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: rollout-bluegreen-active
-spec:
-  selector:
+  labels:
     app: rollout-bluegreen
+spec:
+  type: ClusterIP
   ports:
-  - protocol: TCP
+  - name: http
     port: 80
     targetPort: 8080
-
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: rollout-bluegreen-preview
-spec:
   selector:
     app: rollout-bluegreen
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
