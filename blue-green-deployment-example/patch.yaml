@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-webapp
+spec:
+  template:
+    spec:
+      containers:
+      - name: webapp
+        env:
+        - name: ROLLOUT_TRAFFIC_PERCENTAGE
+          value: "50"
