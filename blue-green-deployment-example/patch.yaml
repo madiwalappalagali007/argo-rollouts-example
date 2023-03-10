@@ -9,4 +9,8 @@ spec:
       - name: webapp
         env:
         - name: ROLLOUT_TRAFFIC_PERCENTAGE
-          value: "50"
+          valueFrom:
+            configMapKeyRef:
+              name: nginx-webapp-env
+              key: ROLLOUT_TRAFFIC_PERCENTAGE
+
