@@ -2,17 +2,27 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- deployment.yaml
-- service.yaml
+  - deployment.yaml
 
 patches:
-- patch.yaml
+  - target:
+      kind: Service
+      name: rollout-bluegreen-active
+    patch: |-
+      - op: replace
+        path: /spec/selector
+        value:
+          matchLabels:
+            app: rollout-bluegreen
+  - target:
+      kind: Service
+      name: rollout-bluegreen-preview
+    patch: |-
+      - op: replace
+        path: /spec/selector
+        value:
+          matchLabels:
+            app: rollout-bluegreen
 
-configMapGenerator:
-- name: nginx-webapp-env
-  literals:
-  - ROLLOUT_TRAFFIC_PERCENTAGE=50
-
-namespace: blue-green-example
 
 
