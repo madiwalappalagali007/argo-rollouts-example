@@ -2,8 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
+- deployment.yaml
+- service.yaml
 
-namespace: blue-green
+patches:
+- patch.yaml
+
+configMapGenerator:
+- name: nginx-webapp-env
+  literals:
+  - ROLLOUT_TRAFFIC_PERCENTAGE=50
+
+namespace: blue-green-example
+
