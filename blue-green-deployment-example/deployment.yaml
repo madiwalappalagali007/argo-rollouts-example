@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollouts-demo
-        image: jemesbond/angular:v2
+        image: jemesbond/angular:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
