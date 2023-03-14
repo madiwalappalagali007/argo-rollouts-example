@@ -16,12 +16,5 @@ spec:
       - name: rollouts-demo
         image: jemesbond/angular:v2
         imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "256Mi"
-          limits:
-            cpu: "200m"
-            memory: "512Mi"
         ports:
         - containerPort: 8080
