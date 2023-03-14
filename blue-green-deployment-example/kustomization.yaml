@@ -6,4 +6,23 @@ resources:
 - hpa.yaml
 #   - service.yaml
 #   - rollout.yaml
+patches:
+  - target:
+      kind: Service
+      name: rollout-bluegreen-active
+    patch: |-
+      - op: replace
+        path: /spec/selector
+        value:
+          matchLabels:
+            app: rollout-bluegreen
+  - target:
+      kind: Service
+      name: rollout-bluegreen-preview
+    patch: |-
+      - op: replace
+        path: /spec/selector
+        value:
+          matchLabels:
+            app: rollout-bluegreen
 
