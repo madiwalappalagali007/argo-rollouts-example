@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - deployment.yaml
+  - hpa.yaml
 #   - service.yaml
 #   - rollout.yaml
 
